@@ -7,32 +7,32 @@
 * 鉴权部分（签名）
 * GetService
 * Bucket api
-	* 删除 bucket
-	* bucket 访问日志
-	* bucket 跨域设置
-	* bucket 访问权限
-	* bucket 防盗链
-	* bucket 静态网站托管
-	* bucket 生命周期
-	* 创建 bucket
-	* 获取 bucket 内的 Object 列表
-	* 获取 bucket 具体信息
-	* S3 特有的 bucket api 介绍
+    * 删除 bucket
+    * bucket 访问日志
+    * bucket 跨域设置
+    * bucket 访问权限
+    * bucket 防盗链
+    * bucket 静态网站托管
+    * bucket 生命周期
+    * 创建 bucket
+    * 获取 bucket 内的 Object 列表
+    * 获取 bucket 具体信息
+    * S3 特有的 bucket api 介绍
 * Object api
-	* Object 单次删除
-	* Object 批量删除
-	* 获取 Object
-	* Object 访问权限
-	* Object 上传（非分块）
-	* Object 追加上传
-	* Object 分块上传
-		* 初始化分块上传
-		* 分块上传
-		* 分块上传完成
-		* 分块上传任务抛弃
-		* 分块上传列表查询
-		* 当前分块上传任务列表查询（非必须）
-	* Object 拷贝
+    * Object 单次删除
+    * Object 批量删除
+    * 获取 Object
+    * Object 访问权限
+    * Object 上传（非分块）
+    * Object 追加上传
+    * Object 分块上传
+        * 初始化分块上传
+        * 分块上传
+        * 分块上传完成
+        * 分块上传任务抛弃
+        * 分块上传列表查询
+        * 当前分块上传任务列表查询（非必须）
+    * Object 拷贝
 
 ## api 情况概览
 
@@ -75,28 +75,34 @@
 ### cos 公共请求头部（如图1.1.1），公共响应头部（如图1.1.2）  
 
 ![图1.1.1][1]
+
                                                 图1.1.1
 
 ![图1.1.2][2]
+
                                                 图1.1.2
                                                 
 
 ### oss 公共请求头部（如图1.2.1），公共响应头部（如图1.2.2）  
 
 ![图1.2.1][3]
+
                                                 图1.2.1
                                                                                               
 ![图1.2.2][4]
+
                                                 图1.2.2
 
 ### S3 公共请求头部（如图1.3.1），公共响应头部（如图1.3.2）
 
 ![图1.3.1(1)][5]
 ![图1.3.1(2)][6]
+
                                                 图1.3.1
                                                 
 ![图1.3.2(1)][7]
 ![图1.3.2(2)][8]
+
                                                 图1.3.2
 
 ### 小结：
@@ -112,9 +118,11 @@
 
 
 ![图1.3.3][9]
+
                                                 图1.3.3
  
-![图1.3.4][10]                                         
+![图1.3.4][10]
+
                                                 图1.3.4                             
 
 ## 二、鉴权部分（签名）
@@ -132,6 +140,7 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * `Signature`：加密后的签名，使用`SignKey`与`StringToSign`通过`HMAC-SHA1`加密的字符串，填入`q-signature`。
 
 ![图2.1.1][11]
+
                                                 图2.1.1
 
 ### URL参数传入
@@ -145,9 +154,11 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 将密文串`SignTmp`放在明文串`Origin`前面，拼接后进行`Base64Encode`算法，得到最终的签名`Sign`。`Sign = Base64 (append(SignTmp, Original))`
 
 ![图2.1.2][12]
+
                                                 图2.1.2
 
 ![图2.1.3][13]
+
                                                 图2.1.3
 
 ### oss 鉴权和cos 类似，这里只归纳不同点：
@@ -157,6 +168,7 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![图2.2.1][14]
+
                                                 图2.2.1
 
 ### s3 鉴权和 cos 类似，不同点在于：
@@ -164,9 +176,11 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * `URL`参数传入（如图2.3.2），具体签名计算流程不同（如图2.3.3）
 
 ![图2.3.2][15]
+
                                                 图2.3.2
                                                 
 ![图2.3.3][16]
+
                                                 图2.3.3
                                               
 ### 小结：
@@ -192,10 +206,12 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 请求参数（如图3.2.1），响应元素（如图3.2.2）
 
 ![图3.2.1][17]
+
                                                 图3.2.1
            
 ![图3.2.2(1)][18]
 ![图3.2.2(2)][19]
+
                                                 图3.2.2
 
 
@@ -204,6 +220,7 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 响应元素（如图3.3.1），和`oss`的类似。
 
 ![图3.3.1][20]
+
                                                 图3.3.1
                                                
 ### 小结：
@@ -220,6 +237,7 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 请求语法（如图4.1.1）
 
 ![图4.1.1][21]
+
                                                 图4.1.1
                                                
 ### oss提供删除 bucket 的 api
@@ -228,9 +246,11 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 请求语法（如图4.2.1），响应报文（如图4.2.2）
 
 ![图4.2.1][22]
+
                                                 图4.2.1
 
 ![图4.2.2][23]
+
                                                 图4.2.2
                                                 
 ### S3 提供删除 bucket 的 api
@@ -238,9 +258,11 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 请求语法（如图4.3.1），响应报文（如图4.3.2）
 
 ![图4.3.1][24]
+
                                                 图4.3.1
                                                 
 ![图4.3.2][25]
+
                                                 图4.3.2
                                                 
 ### 小结：
@@ -257,12 +279,15 @@ Authorization 需要传入的信息字段（如图2.1.1）
     * `maxItemDeleteLimit`字段，由于在控制台删除非空`bucket`成功，因此该字段应当是用于删除非空`bucket`时，`bucket`内最大的`Object`数量，如果超出，则删除失败。
  
 ![图4.1.2][26]
+
                                                 图4.1.2
 
 ![图4.2.3][27]
+
                                                 图4.2.3
  
 ![图4.3.3][28]
+
                                                 图4.3.3
 
 ## 五、bucket 访问日志
@@ -276,19 +301,24 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * 获取`日志`请求（如图5.2.4），请求元素（如图5.2.5）
 
 ![clipboard.png](/img/bVHAnE)
+
                                                 图5.2.1
 
 
 ![clipboard.png](/img/bVHAnS)
+
                                                 图5.2.2
 
 ![clipboard.png](/img/bVHAoC)
+
                                                 图5.2.3
 
 ![clipboard.png](/img/bVHAoE)
+
                                                 图5.2.4
 
 ![clipboard.png](/img/bVHAoL)
+
                                                 图5.2.5
 
 ### S3 提供访问日志功能，具体提供的 api 有 
@@ -296,9 +326,11 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![clipboard.png](/img/bVHArE)
+
                                                 图5.3.1
                                                 
 ![clipboard.png](/img/bVHArP)
+
                                                 图5.3.2
 
 ### 小结：
@@ -312,6 +344,7 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * `cos控制台`进行`CORS`设置的请求抓包（如图6.1.1）。
 
 ![clipboard.png](/img/bVHAtu)
+
                                                 图6.1.1
 
 ### oss 提供设置 bucket CORS 属性的api
@@ -321,18 +354,23 @@ Authorization 需要传入的信息字段（如图2.1.1）
 * `CORS获取`api请求（如图6.2.4）
 
 ![clipboard.png](/img/bVHAvl)
+
                                                 图6.2.1
 
 ![clipboard.png](/img/bVHAvy)
+
                                                 图6.2.2
 
 ![clipboard.png](/img/bVHAvI)
+
                                                 图6.2.3
 
 ![clipboard.png](/img/bVHAvT)
+
                                                 图6.2.4
 
 ![clipboard.png](/img/bVHAv1)
+
                                                 图6.2.5
 
 ### S3 提供设置 bucket CORS 属性的api
@@ -343,12 +381,15 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![clipboard.png](/img/bVHAzu)
+
                                                 图6.3.1
 
 ![clipboard.png](/img/bVHAzX)
+
                                                 图6.3.2
 
 ![clipboard.png](/img/bVHAzM)
+
                                                 图6.3.3
 
 ### 小结：
@@ -366,16 +407,20 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![clipboard.png](/img/bVHAD2)
+
                                                 图7.1.1
 
 ![clipboard.png](/img/bVHAEa)
+
                                                 图7.1.2
 
 ![clipboard.png](/img/bVHAEe)
+
                                                 图7.1.3
 
 
 ![clipboard.png](/img/bVHADV)
+
                                                 图7.1.4
 
 ### oss 提供访问权限设置的api
@@ -392,12 +437,15 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![clipboard.png](/img/bVHAIl)
+
                                                 图7.3.1
 
 ![clipboard.png](/img/bVHAHm)
+
                                                 图7.3.2
 
 ![clipboard.png](/img/bVHAHC)
+
                                                 图7.3.3
 ### 小结：
 * `cos`和`oss`的访问权限比较类似，都是设定一些简易的访问策略（`读写的公有或私有`）
@@ -414,6 +462,7 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![clipboard.png](/img/bVHAOS)
+
                                                 图8.1.1
 
 ### oss 提供 bucket 防盗链设置的 api
@@ -423,9 +472,11 @@ Authorization 需要传入的信息字段（如图2.1.1）
 
 
 ![clipboard.png](/img/bVHAWQ)
+
                                                 图8.2.1
 
 ![clipboard.png](/img/bVHAQP)
+
 
                                                 图8.2.2
 
@@ -453,6 +504,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHAUP)
+
                                                 图8.3.1
  
 ### 小结：
@@ -462,9 +514,11 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHAYZ)
+
                                                 图8.3.2
 
 ![clipboard.png](/img/bVHAY4)
+
                                                 图8.3.3
 
 
@@ -476,6 +530,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHAZK)
+
                                                 图9.1.1
 
 ### oss 提供 bucket 静态网站相关的 api
@@ -486,15 +541,19 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHAZR)
+
                                                 图9.2.1
 
 ![clipboard.png](/img/bVHAZT)
+
                                                 图9.2.2
 
 ![clipboard.png](/img/bVHAZU)
+
                                                 图9.2.3
 
 ![clipboard.png](/img/bVHA0h)
+
                                                 图9.2.4
 
 
@@ -505,6 +564,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 * 控制台请求（如图9.3.1）
 
 ![clipboard.png](/img/bVHA0t)
+
                                                 图9.3.1
 
 ### 小结：
@@ -521,12 +581,15 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBnc)
+
                                                 图10.2.1
 
 ![clipboard.png](/img/bVHBnu)
+
                                                 图10.2.2
   
 ![clipboard.png](/img/bVHBnx)
+
                                                 图10.2.3
 
 
@@ -537,6 +600,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBzo)
+
                                                 图10.3.1
 
 ### 小结：
@@ -544,6 +608,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBDL)
+
                                                 图10.3.2
 
 
@@ -555,9 +620,11 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBGY)
+
                                                 图11.1.1
 
 ![clipboard.png](/img/bVHBG4)
+
                                                 图11.1.2
 
 ### oss 提供创建 bucket 的 api
@@ -565,6 +632,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 * 可以进行简易的访问权限设置，如`x-oss-acl`设置匿名读写的公私有
 
 ![clipboard.png](/img/bVHBHY)
+
                                                 图11.2.1
 
 ### S3 提供创建 bucket 的 api
@@ -573,10 +641,12 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBIs)
+
                                                 图11.3.1
 
 ![clipboard.png](/img/bVHBIN)
 ![clipboard.png](/img/bVHBIX)
+
                                                 图11.3.2
 
 ### 小结：
@@ -589,12 +659,15 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 * 获取`bucket`内`Object`列表请求语法（如图12.1.1），请求参数（如图12.1.2），响应内容（如图12.1.3）。
 
 ![clipboard.png](/img/bVHBQb)
+
                                                 图12.1.1
 
 ![clipboard.png](/img/bVHBQm)
+
                                                 图12.1.2
 
 ![clipboard.png](/img/bVHBQu)
+
                                                 图12.1.3
 
 ### oss 提供获取 bucket 内 Object 列表的 api
@@ -602,6 +675,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBVG)
+
                                                 图12.2.1
 
 
@@ -610,6 +684,7 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHBWd)
+
                                                 图12.3.1
 
 ### 小结：
@@ -625,9 +700,11 @@ https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.ht
 
 
 ![clipboard.png](/img/bVHB0g)
+
                                                 图13.2.1
 
 ![clipboard.png](/img/bVHB0k)
+
                                                 图13.2.2
 
 ### S3 没有提供针对某个 bucket 的信息，但是提供 Get Service 获取用户所有 bucket 信息
@@ -665,12 +742,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHB9m)
+
                                                 图14.3.1
 
 ![clipboard.png](/img/bVHB9z)
+
                                                 图14.3.2
 
 ![clipboard.png](/img/bVHB9E)
+
                                                 图14.3.3
 
 
@@ -678,9 +758,11 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 * `S3`的版本控制主要用于单文件的多个版本的管理，`S3`提供的版本控制`api`可以选择开启或者关闭版本管理。设置版本控制请求（如图14.4.1），获取版本控制请求（如图14.4.2）。值得一提的是，用户进行跨区域复制时，需要先设置版本控制。
 
 ![clipboard.png](/img/bVHCnF)
+
                                                 图14.4.1
 
 ![clipboard.png](/img/bVHCnG)
+
                                                 图14.4.2
  
 ## 十五、Object 单次删除
@@ -689,18 +771,21 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHCoF)
+
                                                 图15.1.1
 
 ### oss 提供删除Object 的 api
 * 删除`Object`请求（如图15.2.1）
 
 ![clipboard.png](/img/bVHCo4)
+
                                                 图15.2.1
                                                 
 ### S3 提供删除Object 的 api
 * 删除`Object`请求（如图15.3.1）
 
 ![clipboard.png](/img/bVHCpx)
+
                                                 图15.3.1
 
 ### 小结：
@@ -708,6 +793,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHCpS)
+
                                                 图15.3.2
 
 
@@ -721,12 +807,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHCqw)
+
                                                 图16.2.1
 
 ![clipboard.png](/img/bVHCqA)
+
                                                 图16.2.2
 
 ![clipboard.png](/img/bVHCqD)
+
                                                 图16.2.3
 
 ### S3 提供Object批量删除的api
@@ -735,22 +824,26 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 * 响应元素（部分，如图16.3.3）
 
 
-![clipboard.png](/img/bVHCrc)、
+![clipboard.png](/img/bVHCrc)
 ![clipboard.png](/img/bVHCrq)
+
                                                 图16.3.1
 
 
 ![clipboard.png](/img/bVHCrx)
 ![clipboard.png](/img/bVHCrw)
+
                                                 图16.3.2
 
 ![clipboard.png](/img/bVHCrD)
+
                                                 图16.3.3
 
 ### 小结：
 * `oss`在批量删除`Object`方面和`S3`近似。`S3`和`oss`在批量删除当面最大的区别在于，`S3`需要考虑`Object`的版本控制，返回的`xml`数据中含有`Object`版本信息（如果开启了版本控制，如图16.3.4），字段名为`VersionId`。
 
 ![clipboard.png](/img/bVHCsk)
+
                                                 图16.3.4
 
 ## 十七、获取Object
@@ -762,14 +855,17 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHCwn)
+
                                                 图17.1.1
 
 ![clipboard.png](/img/bVHCwo)
 ![clipboard.png](/img/bVHCwq)
 
+
                                                 图17.1.2
 
 ![clipboard.png](/img/bVHCwp)
+
                                                 图17.1.3
 
 ### oss 提供获取Object的api
@@ -780,12 +876,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDcp)
+
                                                 图17.2.1
 
 ![clipboard.png](/img/bVHDcr)
+
                                                 图17.2.2
 
 ![clipboard.png](/img/bVHDcs)
+
                                                 图17.2.3
 
 ### S3 提供获取Object的api
@@ -805,18 +904,23 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDdU)
+
                                                 图18.1.1
 
 ![clipboard.png](/img/bVHDdV)
+
                                                 图18.1.2
 
 ![clipboard.png](/img/bVHDdX)
+
                                                 图18.1.3
 
 ![clipboard.png](/img/bVHDd0)
+
                                                 图18.1.4
 
 ![clipboard.png](/img/bVHDd1)
+
                                                 图18.1.5
 
 ### oss 提供Object访问权限设置和获取的api
@@ -825,12 +929,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDeV)
+
                                                 图18.2.1
 
 ![clipboard.png](/img/bVHDeX)
+
                                                 图18.2.2
 
 ![clipboard.png](/img/bVHDe2)
+
                                                 图18.2.3
 
 ### S3 提供 Object 访问权限设置和获取的api
@@ -839,15 +946,19 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDgk)
+
                                                 图18.3.1
 
 ![clipboard.png](/img/bVHDgl)
+
                                                 图18.3.2
 
 ![clipboard.png](/img/bVHDgm)
+
                                                 图18.3.3
 
 ![clipboard.png](/img/bVHDgp)
+
                                                 图18.3.4
 
 ### 小结：
@@ -856,12 +967,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDg9)
+
                                                 图18.1.6
 
 ![clipboard.png](/img/bVHDhc)
+
                                                 图18.2.4
 
 ![clipboard.png](/img/bVHDhd)
+
                                                 图18.3.5
 
 ![clipboard.png](/img/bVHDhe)
@@ -879,25 +993,32 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDho)
+
                                                 图19.1.1
 
 ![clipboard.png](/img/bVHDhq)
 ![clipboard.png](/img/bVHDhs)
+
                                                 图19.1.2
 
 ![clipboard.png](/img/bVHDhu)
+
                                                 图19.1.3
 
 ![clipboard.png](/img/bVHDhv)
+
                                                 图19.1.4
 
 ![clipboard.png](/img/bVHDhz)
+
                                                 图19.1.5
 
 ![clipboard.png](/img/bVHDhA)
+
                                                 图19.1.6
 
 ![clipboard.png](/img/bVHDhB)
+
                                                 图19.1.7
 
 ### oss 提供上传文件api，有两种api可供选择
@@ -908,21 +1029,27 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
     * 在进行`POST`请求时，`oss`还提供`POST policy`设置，用于验证表单的合法性，例如上传文件的`大小限制`，上传成功后的`跳转地址`等（如图19.2.5和图19.2.6）。
     
 ![clipboard.png](/img/bVHDj4)
+
                                                 图19.2.1
 
 ![clipboard.png](/img/bVHDj7)
+
                                                 图19.2.2
 
 ![clipboard.png](/img/bVHDkd)
+
                                                 图19.2.3
 
 ![clipboard.png](/img/bVHDkf)
+
                                                 图19.2.4
 
 ![clipboard.png](/img/bVHDkM)
+
                                                 图19.2.5
 
 ![clipboard.png](/img/bVHDmQ)
+
                                                 图19.2.6
 
 
@@ -933,6 +1060,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 ![clipboard.png](/img/bVHDnE)
 ![clipboard.png](/img/bVHDnF)
+
 
                                                 图19.3.1
 
@@ -948,12 +1076,16 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDoN)
+
+
                                                 图19.1.18
 
 ![clipboard.png](/img/bVHDoT)
+
                                                 图19.2.7
 
 ![clipboard.png](/img/bVHDoY)
+
                                                 图19.3.2
 
 
@@ -965,17 +1097,21 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDpE)
+
                                                 图20.1.1
 
 ![clipboard.png](/img/bVHDpK)
+
                                                 图20.1.2
 
 ![clipboard.png](/img/bVHDpN)
 ![clipboard.png](/img/bVHDpP)
 ![clipboard.png](/img/bVHDpQ)
+
                                                 图20.1.3
 
 ![clipboard.png](/img/bVHDpS)
+
                                                 图20.1.4
   
 ### oss 提供文件的追加上传 api
@@ -984,12 +1120,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDqh)
+
                                                 图20.2.1
 
 ![clipboard.png](/img/bVHDql)
+
                                                 图20.2.2
 
 ![clipboard.png](/img/bVHDqm)
+
                                                 图20.2.3
 
 ### S3 不提供追加上传的 api 接口
@@ -1017,15 +1156,19 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 * `初始化分块上传`请求语法（如图21.1.1），请求头部（如图21.1.2），其中可以设置一些权限相关头部（如图21.1.3）。响应内容（如图21.1.4）。
 
 ![clipboard.png](/img/bVHDtC)
+
                                                 图21.1.1
 
 ![clipboard.png](/img/bVHDtI)
+
                                                 图21.1.2
 
 ![clipboard.png](/img/bVHDtK)
+
                                                 图21.1.3
 
 ![clipboard.png](/img/bVHDtM)
+
                                                 图21.1.4
 
 ### oos 提供初始化分块上传 api
@@ -1036,12 +1179,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDum)
+
                                                 图21.2.1
 
 ![clipboard.png](/img/bVHDun)
+
                                                 图21.2.2
 
 ![clipboard.png](/img/bVHDup)
+
                                                 图21.2.3
  
 
@@ -1052,9 +1198,11 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDuy)
+
                                                 图21.3.1
 
 ![clipboard.png](/img/bVHDuD)
+
                                                 图21.3.2
 
 ### 小结
@@ -1066,13 +1214,16 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDuY)
+
                                                 图21.1.5
 
 ![clipboard.png](/img/bVHDva)
+
                                                 图21.2.4
 
 ![clipboard.png](/img/bVHDvy)
 ![clipboard.png](/img/bVHDvz)
+
                                                 图21.3.3
 
 
@@ -1084,10 +1235,12 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDwh)
+
                                                 图22.1.1
 
 ![clipboard.png](/img/bVHDwo)
 ![clipboard.png](/img/bVHDws)
+
                                                 图22.1.2
 
 ### oss 也提供分块上传 api
@@ -1098,6 +1251,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDwU)
+
                                                 图22.2.1
 
 ### S3 也提供分块上传 api
@@ -1105,6 +1259,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDxa)
+
                                                 图22.3.1
 
 ### 小结
@@ -1121,6 +1276,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 ![clipboard.png](/img/bVHDzE)
 
+
                                                 图22.1.3
 
 ![clipboard.png](/img/bVHDzH)
@@ -1131,6 +1287,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 ![clipboard.png](/img/bVHDzK)
 ![clipboard.png](/img/bVHDzL)
+
                                                 图22.3.2
 
 
@@ -1141,33 +1298,41 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 * 需要传输每一个分块对应的`PartNumber`和`ETag`（分块的`sha1`校验值），校验成功后才进行分块合并。请求语法（如图23.1.1），请求内容（如图23.1.2），响应内容（如图23.1.3）。
 
 ![clipboard.png](/img/bVHDAJ)
+
                                                 图23.1.1
 
 ![clipboard.png](/img/bVHDAQ)
+
                                                 图23.1.2
 
 ![clipboard.png](/img/bVHDAS)
+
                                                 图23.1.3
 
 ### oss 也提供完成分块上传的 api
 * 具体过程和`cos`一致，都需要提供每一个分块的`partNumber`和`ETag` ，分片校验之后再进行分块合并。请求语法（如图23.2.1），请求内容（如图23.2.2），响应元素（如图23.2.3）。
 
 ![clipboard.png](/img/bVHDBO)
+
                                                 图23.2.1
 
 ![clipboard.png](/img/bVHDBP)
+
                                                 图23.2.2
  
 ![clipboard.png](/img/bVHDBV)
+
                                                 图23.2.3
 
 ### S3 也提供完成分块上传的 api
 * `S3`提供的完成分块上传`api`和`oss`一致，主要区别在于`S3`返回的头部中含有文件的`版本编号`，`加密算法类型`等（如图23.3.1），请求语法（如图23.3.2）。
 
 ![clipboard.png](/img/bVHDCr)
+
                                                 图23.3.1
 
 ![clipboard.png](/img/bVHDCs)
+
                                                 图23.3.2
 
 ### 小结
@@ -1181,14 +1346,17 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 ![clipboard.png](/img/bVHDzr)
 ![clipboard.png](/img/bVHDzs)
+
                                                 图23.1.4
 
 ![clipboard.png](/img/bVHDzt)
 ![clipboard.png](/img/bVHDzv)
+
                                                 图23.2.4
 
 ![clipboard.png](/img/bVHDD7)
 ![clipboard.png](/img/bVHDEf)
+
                                                 图23.3.3
 
 
@@ -1199,12 +1367,14 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 * 用于停止分块上传，并且删除已经上传成功的分块。请求语法（如图24.1.1）
 
 ![clipboard.png](/img/bVHDQu)
+
                                                 图24.1.1
 
 ### oss 也提供分块上传任务抛弃的api
 * 请求语法（如图24.2.1）
 
 ![clipboard.png](/img/bVHDQD)
+
                                                 图24.2.1
                                                 
 ### S3 也提供分块上传任务抛弃的api
@@ -1212,6 +1382,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDQI)
+
                                                 图24.3.1
 
 ### 小结
@@ -1227,12 +1398,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDRX)
+
                                                 图25.1.1
 
 ![clipboard.png](/img/bVHDSg)
+
                                                 图25.1.2
 
 ![clipboard.png](/img/bVHDSk)
+
                                                 图25.1.3
 
 ### oss 也提供分块上传列表查询 api
@@ -1240,6 +1414,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDSE)
+
                                                 图25.2.1
 
 ### S3 也提供分块上传列表查询api
@@ -1251,6 +1426,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 ![clipboard.png](/img/bVHDSX)
 ![clipboard.png](/img/bVHDSY)
+
                                                 图25.3.1
                                                 
 ### 小结
@@ -1262,6 +1438,7 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
     
 ![clipboard.png](/img/bVHDS5)
 ![clipboard.png](/img/bVHDS6)
+
                                                 图25.1.4
 
 ## 二十六、当前分块上传任务列表
@@ -1274,12 +1451,15 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHDTr)
+
                                                 图26.2.1
 
 ![clipboard.png](/img/bVHDTu)
+
                                                 图26.2.2
 
 ![clipboard.png](/img/bVHDTv)
+
                                                 图26.2.3
 
 ### S3 不提供该 api。
@@ -1295,41 +1475,50 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 
 ![clipboard.png](/img/bVHEYu)
+
                                                 图27.1.1
 
 ![clipboard.png](/img/bVHEYv)
+
                                                 图27.1.2
 
 ![clipboard.png](/img/bVHEYx)
+
                                                 图27.1.3
 
 ### oss 提供文件拷贝的 api
 * 对于小于1GB的文件，可以直接调用`CopyObject` api 
     * 请求时需传入`DestObjectName` （目标文件名）、`DestBucketName`（目标bucket）和`x-oss-copy-source`头部（拷贝源）
-    * 请求语法（如图27.2.1），请求头部（如图27.2.2），	响应元素（如图27.2.3） 
+    * 请求语法（如图27.2.1），请求头部（如图27.2.2），    响应元素（如图27.2.3） 
 * 对于大于1GB的文件，可以调用`UploadPartCopy` api 
     * 在调用该 api 前，需要调用`Initiate Multipart Upload`（初始化分块上传）api，获取`Upload ID`。该api可以视为`分块上传`的特例，相当于将指定bucket中的大文件`分块上传`到另一个bucket中。
-    * 请求语法（如图27.2.4），请求头部（如图27.2.5），	响应示例（如图27.2.6） 
+    * 请求语法（如图27.2.4），请求头部（如图27.2.5），    响应示例（如图27.2.6） 
     
 
 ![clipboard.png](/img/bVHEYY)
+
                                                 图27.2.1
 
 ![clipboard.png](/img/bVHEZa)
 ![clipboard.png](/img/bVHEZk)
+
                                                 图27.2.2
 
 ![clipboard.png](/img/bVHEZo)
+
                                                 图27.2.3
 
 ![clipboard.png](/img/bVHE0n)
+
                                                 图27.2.4
 
 ![clipboard.png](/img/bVHE0t)
 ![clipboard.png](/img/bVHE0u)
+
                                                 图27.2.5
                                                 
 ![clipboard.png](/img/bVHE0w)
+
                                                 图27.2.6
 
 
@@ -1342,13 +1531,16 @@ http://docs.aws.amazon.com/zh_cn/AmazonS3/latest/dev/example-bucket-policies.htm
 
 ![clipboard.png](/img/bVHE2H)
 ![clipboard.png](/img/bVHE2K)
+
                                                 图27.3.1
 
 ![clipboard.png](/img/bVHE2O)
 ![clipboard.png](/img/bVHE2R)
+
                                                 图27.3.2
 
 ![clipboard.png](/img/bVHE3c)
+
                                                 图27.3.3
 
 ### 小结
